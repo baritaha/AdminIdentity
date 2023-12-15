@@ -1,0 +1,45 @@
+﻿@model IEnumerable<Microsoft.AspNetCore.Identity.IdentityRole>
+
+@{
+    ViewData["Title"] = "RoleList";
+}
+
+<style>
+    /* Style to display cards horizontally */
+    .card-container {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 20px; /* Adjust the gap between cards */
+    }
+
+    /* Style for individual card */
+    .card {
+        width: 300px;
+        /* Add other styles as needed */
+    }
+</style>
+
+<h1 style="color: darkred; font-family: cursive">Role List</h1>
+<a asp-action="CreateRole" asp-controller="Account" class="btn btn-outline-success">Create New Role</a>
+
+<div class="card-container">
+    @foreach (var role in Model)
+    {
+        <div class="card">
+            <img class="card-img-top" src="../images/avatar.png" alt="Card image" style="width: 50%">
+            <div class="card-body">
+                <h4 class="card-title">@role.Name</h4>
+                <p class="card-text">@role.Id</p>
+                 <div class="d-flex">
+                    <a asp-action="EditRole" asp-route-id="@role.Id" class="btn btn-outline-primary">Edit</a>
+                    <form method="post" action="/Account/DeleteRole">
+                        <input type="hidden" name="id" value="@role.Id" />
+                        <button type="submit" class="btn btn-outline-danger">Delete</button>
+                        </form>
+                </div>
+
+            </div>
+        </div>
+    }
+</div>
+
